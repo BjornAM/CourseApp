@@ -15,6 +15,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { useCourses } from "../CourseContext";
+import { useStateWithDeps } from "../useStateWithDeps";
 
 const CategoryItem = ({ category, toggleCategory }) => (
   <View style={styles.switchContainer}>
@@ -38,7 +39,10 @@ const HomeScreen = () => {
   ]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const { courses, setCourses } = useCourses();
-  const [filteredCourses, setFilteredCourses] = useState(courses);
+  const [filteredCourses, setFilteredCourses] = useStateWithDeps(
+    () => courses,
+    [courses]
+  );
 
   const toggleCategory = (categoryId) => {
     setCategories((prevCategories) =>
@@ -161,6 +165,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    margin: 50,
   },
   header: {
     flexDirection: "row",
@@ -205,6 +210,7 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 10,
     marginVertical: 5,
+    marginBottom: 40,
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 10,
