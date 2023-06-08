@@ -1,30 +1,22 @@
 import React, { createContext, useState, useContext } from "react";
-import HomeScreen from "./screens/HomeScreen";
 
 const CourseContext = createContext();
-const [newCourse, setNewCourse] = useState({});
-
-const addCourse = () => {
-  if (Object.keys(newCourse).length === 0) {
-    return;
-  }
-  const courseId = Math.random().toString();
-  const course = {
-    id: courseId,
-    ...newCourse,
-  };
-  setCourses((prevCourses) => [...prevCourses, course]);
-  setNewCourse({});
-
-  navigation.navigate("Courses");
-};
-
-const handleAddCourse = () => {
-  setNewCourse({});
-  navigation.navigate();
-};
 
 const CourseProvider = ({ children }) => {
+  const [newCourse, setNewCourse] = useState({});
+  const addCourse = () => {
+    if (Object.keys(newCourse).length === 0) {
+      return;
+    }
+    const courseId = Math.random().toString();
+    const course = {
+      id: courseId,
+      ...newCourse,
+    };
+    setCourses((prevCourses) => [...prevCourses, course]);
+    setNewCourse({});
+  };
+
   const [courses, setCourses] = useState([
     {
       id: "1",
@@ -66,7 +58,9 @@ const CourseProvider = ({ children }) => {
   ]);
 
   return (
-    <CourseContext.Provider value={{ courses, setCourses }}>
+    <CourseContext.Provider
+      value={{ courses, setCourses, addCourse, newCourse, setNewCourse }}
+    >
       {children}
     </CourseContext.Provider>
   );

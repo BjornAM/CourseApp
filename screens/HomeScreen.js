@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import {
   View,
@@ -14,7 +14,6 @@ import {
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
 import { useCourses } from "../CourseContext";
 
 const CategoryItem = ({ category, toggleCategory }) => (
@@ -88,6 +87,10 @@ const HomeScreen = () => {
     navigation.navigate("CourseDetails", { course });
   };
 
+  const handleAddCourse = () => {
+    navigation.navigate("AddCourse");
+  };
+
   const categoriesContainerStyle = showCategories
     ? {
         alignItems: "center",
@@ -117,7 +120,7 @@ const HomeScreen = () => {
           <AntDesign name="filter" size={15} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.addbutton}
+          style={styles.addButton}
           onPress={() => handleAddCourse()}
         >
           <Text>+Add Course</Text>
