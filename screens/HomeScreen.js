@@ -77,11 +77,18 @@ const HomeScreen = () => {
       onPress={() => handleCoursePress(item)}
     >
       <View style={styles.courseImageContainer}>
-        <Image source={item.image} style={styles.courseImage} />
+        {item.image && (
+          <Image source={{ uri: item.image }} style={styles.courseImage} />
+        )}
       </View>
       <Text style={styles.courseTitle}>{item.name}</Text>
       <View style={styles.profileContainer}>
-        <Image source={item.profileImage} style={styles.profileImage} />
+        {item.profileImage && (
+          <Image
+            source={{ uri: item.profileImage }}
+            style={styles.profileImage}
+          />
+        )}
         <Text style={styles.profileName}>{item.profileName}</Text>
       </View>
     </Pressable>
@@ -210,7 +217,7 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 10,
     marginVertical: 5,
-    marginBottom: 40,
+    marginBottom: 50,
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 10,

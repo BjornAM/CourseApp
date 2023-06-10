@@ -7,8 +7,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Pressable,
+  Modal,
 } from "react-native";
 import { useCourses } from "../CourseContext.js";
+import shortid from "shortid";
 
 const AddCourseScreen = () => {
   const navigation = useNavigation();
@@ -19,19 +22,48 @@ const AddCourseScreen = () => {
   const [image, setImage] = useState("");
   const [profileName, setProfileName] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [tasks, setTasks] = useState([]);
   const [done, setDone] = useState(false);
+  const [opened, setOpened] = useState(false);
 
-  const add = () => {
+  const [newTask, setNewTask] = useState("");
+  const [newTaskDescription, setNewTaskdesciption] = useState("");
+
+  // const imageUrl = ""; Kolla Demos/Navigation/components/MealItem.js kolla på const{} = props;
+
+  const saveCours = () => {
     addCourse({
       name,
       category,
       image,
       profileName,
-      // profileImage,
-      //id?
+      profileImage,
+      // task[],
     });
     navigation.navigate("Courses");
   };
+
+  const deleteTask = (task) => {
+    setTasks(tasks.filter((x) => x.id !== task.id));
+  };
+
+  const addTask = () => {
+    setOpened(true);
+  };
+
+  // const saveTask = (newTask) => {
+  //   if (Object.keys(newTask).length === 0) {
+  //     return;
+  //   }
+  //   const taskId = Math.random().toString();
+  //   const task = {
+  //     id: taskId,
+  //     ...newTask,
+  //   };
+  //   setTasks((prevTasks) => [task, ...prevTasks]);
+  //   setNewTask({});
+  // };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -57,14 +89,66 @@ const AddCourseScreen = () => {
           value={profileName}
           onChangeText={setProfileName}
         />
-        {/* imageInput profileImage */}
-        {/* Lägga till CoursDetails  */}
+        {/* <View>
+          <Image source={{ uri: imageUrl }} style={styles.image}/>
+        </View> */}
 
-        <TouchableOpacity style={styles.addButton} onPress={add}>
+        {/* Lägga till CoursDetails-tags + vidare till CoursStagesScreen  */}
+        <Pressable onPress={addTask}>
+          <Text>Add Task</Text>
+        </Pressable>
+
+        {tasks.map((task) => (
+          <View style={styles.task} key={task.id}>
+            <Text>{task.title}</Text>
+            <Pressable onPress={() => deleteTask(task)}>
+              <Text>Delete</Text>
+            </Pressable>
+          </View>
+        ))}
+        <TouchableOpacity style={styles.addButton} onPress={saveCours}>
           <Text style={styles.saveCourseButtonText}>+ Save Course</Text>
         </TouchableOpacity>
       </View>
       {done && <Text>Sparad!</Text>}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={opened}
+        // onRequestClose={() => {
+        //   setOpened(false);
+        // }}
+      >
+        {/* <View style={styles.centeredView}> */}
+        <View style={styles.modalView}>
+          <Text style={styles.taskHeading}>Course Task</Text>
+          <TextInput
+            style={styles.taskNameText}
+            placeholder="Task Name.."
+            value={newTask}
+            onChangeText={setNewTask}
+          ></TextInput>
+          <TextInput
+            style={styles.taskDescriptionText}
+            placeholder="Task Description.."
+            value={newTaskDescription}
+            onChangeText={setNewTaskdesciption}
+          ></TextInput>
+
+          <View style={styles.buttonsContainer}>
+            <Pressable style={styles.saveButton}>
+              <Text style={styles.buttonsText}>Save</Text>
+            </Pressable>
+            <Pressable
+              style={styles.cancelButton}
+              onPress={() => setOpened(!opened)}
+            >
+              <Text style={styles.buttonsText}>Cancel</Text>
+            </Pressable>
+          </View>
+        </View>
+        {/* </View> */}
+      </Modal>
     </View>
   );
 };
@@ -86,6 +170,67 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "normal",
     marginBottom: 15,
+  },
+  image: {},
+  task: {
+    flexDirection: "row",
+    margin: 15,
+  },
+  modalView: {
+    alignSelf: "center",
+    marginTop: 200,
+    height: 300,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 70,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+  },
+  saveButton: {
+    width: 75,
+    backgroundColor: "gainsboro",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  cancelButton: {
+    width: 75,
+    backgroundColor: "gainsboro",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonsText: {
+    alignSelf: "center",
+  },
+  // textStyle: {
+  //   color: "white",
+  //   fontWeight: "bold",
+  //   textAlign: "center",
+  // },
+
+  taskHeading: {
+    alignSelf: "center",
+    marginBottom: 50,
+  },
+  taskNameText: {
+    alignSelf: "center",
+    marginBottom: 15,
+  },
+  taskDescriptionText: {
+    alignSelf: "center",
+    marginBottom: 35,
   },
 });
 

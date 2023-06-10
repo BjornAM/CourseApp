@@ -1,14 +1,15 @@
 import React from "react";
 import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
-import { CourseContext } from "../CourseContext.js";
 
 const CourseDetailsScreen = ({ route }) => {
   const { course } = route.params;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image source={course.image} style={styles.image} />
-      <Text style={styles.heading1}>Learn {course.name}</Text>
+      {course.image && (
+        <Image source={{ uri: course.image }} style={styles.image} />
+      )}
+      <Text style={styles.heading1}>{course.name}</Text>
       <Text style={styles.heading2}>Course Content</Text>
       {course.tags?.map((tag, index) => (
         <View style={styles.listItem} key={index}>

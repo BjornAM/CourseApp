@@ -9,6 +9,9 @@ import AddCourseScreen from "./screens/AddCourseScreen";
 
 const Stack = createStackNavigator();
 
+// const BottomTabs = createBottomTabNavigator();
+// // react-native/Demos/5.Summering/App.js Kolla importer och hantering av projekt. kolla olika filer.
+
 export default function App() {
   return (
     <CourseProvider>
