@@ -5,15 +5,24 @@ const CourseContext = createContext();
 const CourseProvider = ({ children }) => {
   const [newCourse, setNewCourse] = useState({});
   const [courses, setCourses] = useState([
-    // {
-    //   id: "1",
-    //   name: "The ultimate Fooball-package: All levels",
-    //   category: "Sport",
-    //   image: "https://",
-    //   profileName: "Neymar Jr",
-    //   profileImage: require("./Images/Neymar.jpg"),
-    //   tags: ["", "", ""],
-    // },
+    {
+      id: "1",
+      name: "The ultimate Fooball-package: All levels",
+      category: "Sport",
+      image: "https://i.postimg.cc/gkf2WsW-5/Football.jpg",
+      profileName: "Neymar Jr",
+      profileImage: "https://i.postimg.cc/bYmZK1dc/Neymar.jpg",
+      tags: [
+        "Strategies",
+        "Football all around the world",
+        "Passing",
+        "Dribbling",
+        "Shots",
+        "How to score goals",
+        "Listen to the pro: Eric Cantona",
+        "Listen to the pro: Paul Gascoigne",
+      ],
+    },
     {
       id: "2",
       name: "Master the acustic Guitar",
@@ -21,26 +30,26 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/bwkNNnYv/Guitar.jpg",
       profileName: "Bjorn Mansson",
       profileImage: "https://i.postimg.cc/657pgSDn/Bjorn.jpg",
-      tags: ["Learn how to play a song", "Stämm gitarren", ""],
+      tags: ["Learn how to play a song", "Chords", "Guitars"],
     },
-    // {
-    //   id: "3",
-    //   name: "Creatine",
-    //   category: "Nutrition",
-    //   image: require("./Images/Creatine.jpg"),
-    //   profileName: "Emil Edmar",
-    //   profileImage: require("./Images/Emil.jpg"),
-    //   tags: ["", "", ""],
-    // },
-    // {
-    //   id: "4",
-    //   name: "Whiskey Sour",
-    //   category: "Coctails",
-    //   image: require("./Images/Whiskey.jpg"),
-    //   profileName: "David Kringlund",
-    //   profileImage: require("./Images/David.jpg"),
-    //   tags: ["", "", ""],
-    // },
+    {
+      id: "3",
+      name: "Creatine",
+      category: "Nutrition",
+      image: "https://i.postimg.cc/CK0MZKds/Creatine.jpg",
+      profileName: "Emil Edmar",
+      profileImage: "https://i.postimg.cc/NFFjgPLh/Emil.jpg",
+      tags: ["How to supplement", "Research", "Creatine for athletes"],
+    },
+    {
+      id: "4",
+      name: "Whiskey Sour",
+      category: "Coctails",
+      image: "https://i.postimg.cc/m26FF7GN/Whiskey.jpg",
+      profileName: "David Kringlund",
+      profileImage: "https://i.postimg.cc/CMrKvY6w/David.jpg",
+      tags: ["The perfect Whiskey Sour", "Ingredients", "Whiskey"],
+    },
   ]);
 
   const addCourse = (newCourse) => {
