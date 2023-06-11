@@ -22,7 +22,7 @@ const AddCourseScreen = () => {
   const [image, setImage] = useState("");
   const [profileName, setProfileName] = useState("");
   const [profileImage, setProfileImage] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([{ title: "100 tips", id: "1" }]);
   const [done, setDone] = useState(false);
   const [opened, setOpened] = useState(false);
 
@@ -38,7 +38,7 @@ const AddCourseScreen = () => {
       image,
       profileName,
       profileImage,
-      // task[],
+      tasks,
     });
     navigation.navigate("Courses");
   };
@@ -47,22 +47,22 @@ const AddCourseScreen = () => {
     setTasks(tasks.filter((x) => x.id !== task.id));
   };
 
-  const addTask = () => {
+  const openTask = () => {
     setOpened(true);
   };
 
-  // const saveTask = (newTask) => {
-  //   if (Object.keys(newTask).length === 0) {
-  //     return;
-  //   }
-  //   const taskId = Math.random().toString();
-  //   const task = {
-  //     id: taskId,
-  //     ...newTask,
-  //   };
-  //   setTasks((prevTasks) => [task, ...prevTasks]);
-  //   setNewTask({});
-  // };
+  const saveTask = () => {
+    //skicka med tasks (hårdkodade)
+    let task = {
+      title: newTask,
+      description: newTaskDescription,
+      id: shortid(),
+    };
+    setTasks((prevTasks) => [task, ...prevTasks]);
+    setNewTask("");
+    setNewTaskdesciption("");
+    setOpened(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -94,7 +94,7 @@ const AddCourseScreen = () => {
         </View> */}
 
         {/* Lägga till CoursDetails-tags + vidare till CoursStagesScreen  */}
-        <Pressable onPress={addTask}>
+        <Pressable onPress={openTask}>
           <Text>Add Task</Text>
         </Pressable>
 
@@ -136,7 +136,7 @@ const AddCourseScreen = () => {
           ></TextInput>
 
           <View style={styles.buttonsContainer}>
-            <Pressable style={styles.saveButton}>
+            <Pressable style={styles.saveButton} onPress={saveTask}>
               <Text style={styles.buttonsText}>Save</Text>
             </Pressable>
             <Pressable

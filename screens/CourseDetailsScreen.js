@@ -1,23 +1,63 @@
-import React from "react";
-import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
+import * as React from "react";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
+
 
 const CourseDetailsScreen = ({ route }) => {
   const { course } = route.params;
 
+  const FirstRoute = () => (
+    <View style={{ flex: 1, backgroundColor: "#ff4081" }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {course.image && (
+          <Image source={{ uri: course.image }} style={styles.image} />
+        )}
+        <Text style={styles.heading1}>{course.name}</Text>
+        <Text style={styles.heading2}>Course Content</Text>
+        {course.tasks?.map((task, index) => (
+          <View style={styles.listItem} key={index}>
+            <Text style={styles.checkIcon}>✓</Text>
+            <Text>{task.title}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+
+  const SecondRoute = () => (
+    <View style={{ flex: 1, backgroundColor: "#673ab7" }} />
+  );
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  });
+
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: "first", title: "First" },
+    { key: "second", title: "Second" },
+  ]);
+
+  //   const CourseDetails = () => {};
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {course.image && (
-        <Image source={{ uri: course.image }} style={styles.image} />
-      )}
-      <Text style={styles.heading1}>{course.name}</Text>
-      <Text style={styles.heading2}>Course Content</Text>
-      {course.tags?.map((tag, index) => (
-        <View style={styles.listItem} key={index}>
-          <Text style={styles.checkIcon}>✓</Text>
-          <Text>{tag}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <TabView
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      initialLayout={{ width: layout.width }}
+    />
   );
 };
 
