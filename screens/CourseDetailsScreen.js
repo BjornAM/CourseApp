@@ -7,15 +7,15 @@ import {
   Image,
   StyleSheet,
   useWindowDimensions,
+  TouchableOpacity,
 } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
-
 
 const CourseDetailsScreen = ({ route }) => {
   const { course } = route.params;
 
   const FirstRoute = () => (
-    <View style={{ flex: 1, backgroundColor: "#ff4081" }}>
+    <View style={{ flex: 1, backgroundColor: "gainsboro" }}>
       <ScrollView contentContainerStyle={styles.container}>
         {course.image && (
           <Image source={{ uri: course.image }} style={styles.image} />
@@ -25,16 +25,44 @@ const CourseDetailsScreen = ({ route }) => {
         {course.tasks?.map((task, index) => (
           <View style={styles.listItem} key={index}>
             <Text style={styles.checkIcon}>✓</Text>
-            <Text>{task.title}</Text>
+            <Text>{task}</Text>
           </View>
         ))}
       </ScrollView>
     </View>
   );
 
-  const SecondRoute = () => (
-    <View style={{ flex: 1, backgroundColor: "#673ab7" }} />
-  );
+  const SecondRoute = () => {
+    const [expandedTasks, setExpandedTasks] = useState([]);
+    const toggleTask = (index) => {
+      if (expandedTasks.includes(index)) {
+        setExpandedTasks(
+          expandedTasks.filter((taskIndex) => taskIndex !== index)
+        );
+      } else {
+        setExpandedTasks([...expandedTasks, index]);
+      }
+    };
+
+    <View style={{ flex: 1, backgroundColor: "darkgrey" }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.heading2}>Course Content</Text>
+        {course.tasks?.map((task, index) => (
+          <TouchableOpacity
+            style={styles.listItem}
+            key={index}
+            onPress={() => toggleTask(index)}
+          >
+            <Text style={styles.checkIcon}>✓</Text>
+            <Text>{task}</Text>
+            {expandedTasks.includes(index) && (
+              <Text style={styles.description}>{task.description}</Text>
+            )}
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>;
+  };
 
   const renderScene = SceneMap({
     first: FirstRoute,
@@ -47,7 +75,7 @@ const CourseDetailsScreen = ({ route }) => {
   const [routes] = React.useState([
     { key: "first", title: "First" },
     { key: "second", title: "Second" },
-  ]);
+  ]); // styla den blåa bannern
 
   //   const CourseDetails = () => {};
 
@@ -90,6 +118,11 @@ const styles = StyleSheet.create({
   checkIcon: {
     marginRight: 5,
     color: "green",
+  },
+  description: {
+    fontSize: 16,
+    marginTop: 5,
+    color: "gray",
   },
 });
 

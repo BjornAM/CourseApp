@@ -12,7 +12,7 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/gkf2WsW-5/Football.jpg",
       profileName: "Neymar Jr",
       profileImage: "https://i.postimg.cc/bYmZK1dc/Neymar.jpg",
-      tags: [
+      tasks: [
         "Strategies",
         "Football all around the world",
         "Passing",
@@ -30,7 +30,7 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/bwkNNnYv/Guitar.jpg",
       profileName: "Bjorn Mansson",
       profileImage: "https://i.postimg.cc/657pgSDn/Bjorn.jpg",
-      tags: ["Learn how to play a song", "Chords", "Guitars"],
+      tasks: ["Learn how to play a song", "Chords", "Guitars"],
     },
     {
       id: "3",
@@ -39,7 +39,7 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/CK0MZKds/Creatine.jpg",
       profileName: "Emil Edmar",
       profileImage: "https://i.postimg.cc/NFFjgPLh/Emil.jpg",
-      tags: ["How to supplement", "Research", "Creatine for athletes"],
+      tasks: ["How to supplement", "Research", "Creatine for athletes"],
     },
     {
       id: "4",
@@ -48,7 +48,7 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/m26FF7GN/Whiskey.jpg",
       profileName: "David Kringlund",
       profileImage: "https://i.postimg.cc/CMrKvY6w/David.jpg",
-      tags: ["The perfect Whiskey Sour", "Ingredients", "Whiskey"],
+      tasks: ["The perfect Whiskey Sour", "Ingredients", "Whiskey"],
     },
   ]);
 
