@@ -10,18 +10,37 @@ const CourseProvider = ({ children }) => {
       name: "The ultimate Fooball-package: All levels",
       category: "Sport",
       image: "https://i.postimg.cc/gkf2WsW-5/Football.jpg",
+      video: "https://www.youtube.com/watch?v=uAk-S8y48Yg",
       profileName: "Neymar Jr",
       profileImage: "https://i.postimg.cc/bYmZK1dc/Neymar.jpg",
       tasks: [
-        "Strategies",
-        "Football all around the world",
-        "Passing",
-        "Dribbling",
-        "Shots",
-        "How to score goals",
-        "Listen to the pro: Eric Cantona",
-        "Listen to the pro: Paul Gascoigne",
+        {
+          title: "Strategies",
+          description: [
+            "Rules in fotball",
+            "Formations in fotball",
+            "Offense and defense in fotball",
+          ],
+        },
+        { title: "Football all around the world" },
+        { title: "Kick the ball" },
+        { title: "Dribbling" },
+        { title: "Shots" },
+        { title: "Penalties" },
+        { title: "How to react" },
+        { title: "Keeping it simple" },
+        { title: "Gameplan" },
+        { title: "How to score goals" },
+        { title: "Listen to the pro: Eric Cantona" },
+        { title: "Listen to the pro: Paul Gascoigne" },
       ],
+      courseDescriptionText:
+        "In this course you will learn everything there is to know about fotball. You start of with strategies to learn the basics of fotball. You will learn the rules and the consequences.",
+      // courseVideoInfo: [
+      //   { title: "Rules in fotball"},
+      //   { title: "Formations in fotball"},
+      //   { title: "Offense and defense in fotball"}
+      // ]
     },
     {
       id: "2",
@@ -30,7 +49,17 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/bwkNNnYv/Guitar.jpg",
       profileName: "Bjorn Mansson",
       profileImage: "https://i.postimg.cc/657pgSDn/Bjorn.jpg",
-      tasks: ["Learn how to play a song", "Chords", "Guitars"],
+      tasks: [
+        { title: "Learn how to play a song" },
+        { title: "Chords" },
+        { title: "Guitars" },
+      ],
+      courseDescriptionText: "You will learn how to play the acustic guitar.",
+      courseVideoInfo: [
+        { title: "How to hold the guitarr" },
+        { title: "Play the melody" },
+        { title: "Tempo your song" },
+      ],
     },
     {
       id: "3",
@@ -39,7 +68,18 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/CK0MZKds/Creatine.jpg",
       profileName: "Emil Edmar",
       profileImage: "https://i.postimg.cc/NFFjgPLh/Emil.jpg",
-      tasks: ["How to supplement", "Research", "Creatine for athletes"],
+      tasks: [
+        { title: "How to supplement" },
+        { title: "Research" },
+        { title: "Creatine for athletes" },
+      ],
+      courseDescriptionText:
+        "Creatine is probably on of the best supplement to take. It enhances both strength and cognitive ability.",
+      courseVideoInfo: [
+        { title: "Amounts" },
+        { title: "The daily" },
+        { title: "Tempo your song" },
+      ],
     },
     {
       id: "4",
@@ -48,7 +88,13 @@ const CourseProvider = ({ children }) => {
       image: "https://i.postimg.cc/m26FF7GN/Whiskey.jpg",
       profileName: "David Kringlund",
       profileImage: "https://i.postimg.cc/CMrKvY6w/David.jpg",
-      tasks: ["The perfect Whiskey Sour", "Ingredients", "Whiskey"],
+      tasks: [
+        { title: "The perfect Whiskey Sour" },
+        { title: "Ingredients" },
+        { title: "Whiskey" },
+      ],
+      courseDescriptionText: "Learn how to make the perfect whiskey Sour.",
+      courseVideoInfo: [{ title: "" }],
     },
   ]);
 

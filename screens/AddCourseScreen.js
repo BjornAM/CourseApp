@@ -32,14 +32,7 @@ const AddCourseScreen = () => {
   // const imageUrl = ""; Kolla Demos/Navigation/components/MealItem.js kolla på const{} = props;
 
   const saveCours = () => {
-    addCourse({
-      name,
-      category,
-      image,
-      profileName,
-      profileImage,
-      tasks,
-    });
+    addCourse({ name, category, image, profileName, tasks });
     navigation.navigate("Courses");
   };
 
@@ -100,9 +93,9 @@ const AddCourseScreen = () => {
 
         {tasks.map((task) => (
           <View style={styles.task} key={task.id}>
-            <Text>{task.title}</Text>
+            <Text>✓ {task.title}</Text>
             <Pressable onPress={() => deleteTask(task)}>
-              <Text>Delete</Text>
+              <Text style={styles.deleteButton}>Delete</Text>
             </Pressable>
           </View>
         ))}
@@ -214,12 +207,6 @@ const styles = StyleSheet.create({
   buttonsText: {
     alignSelf: "center",
   },
-  // textStyle: {
-  //   color: "white",
-  //   fontWeight: "bold",
-  //   textAlign: "center",
-  // },
-
   taskHeading: {
     alignSelf: "center",
     marginBottom: 50,
@@ -231,6 +218,10 @@ const styles = StyleSheet.create({
   taskDescriptionText: {
     alignSelf: "center",
     marginBottom: 35,
+  },
+  deleteButton: {
+    marginLeft: 10,
+    fontStyle: "italic",
   },
 });
 
