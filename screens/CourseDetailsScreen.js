@@ -69,13 +69,16 @@ const CourseDetailsScreen = ({ route }) => {
 
     const handleLongPress = (task) => {
       if (isTaskSelected) {
-        setIsExpanded(!isExpanded);
+        if (expandedTask === task) isExpanded;
+        setExpandedTask(null);
+      } else {
+        setIsExpanded(true);
         setExpandedTask(task);
-
-        if (task.videoUrl) {
-          // Öppna videon
-        }
       }
+
+      // if (task.videoUrl) {
+      //   // Öppna videon
+      // }
     };
 
     return (
@@ -109,9 +112,9 @@ const CourseDetailsScreen = ({ route }) => {
           ))}
           {expandedTask && (
             <View style={styles.centeredContainer}>
-              {expandedTask.description.map((describe, index) => (
+              {expandedTask.description.map((d, index) => (
                 <Text key={index} style={styles.centeredText}>
-                  {describe}
+                  {d}
                 </Text>
               ))}
             </View>
