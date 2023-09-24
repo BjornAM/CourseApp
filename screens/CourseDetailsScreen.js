@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
   TouchableOpacity,
   FlatList,
+  Button,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import ExpoVideo from "../components/ExpoVideo";
@@ -63,19 +64,12 @@ const CourseDetailsScreen = ({ route }) => {
   };
 
   const SecondRoute = () => {
-    const [isExpanded, setIsExpanded] = useState(false);
     const [expandedTask, setExpandedTask] = useState(null);
+    const [longPressedTask, setLongPressedTask] = useState(null);
 
     const handleLongPress = (task) => {
-      if (expandedTask === task) {
-        // Om samma task trycks igen, dölj beskrivningen
-        setIsExpanded(false);
-        setExpandedTask(null);
-      } else {
-        // Annars, visa beskrivningen för den tryckta tasken
-        setIsExpanded(true);
-        setExpandedTask(task);
-      }
+      setExpandedTask(null);
+      setLongPressedTask(task);
     };
 
     return (
@@ -83,33 +77,54 @@ const CourseDetailsScreen = ({ route }) => {
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.heading2}>Course Content</Text>
           {course.tasks?.map((task, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.listItem}
+              onPress={() => setExpandedTask(task)}
+            >
+              <Text style={styles.checkIcon}>✓</Text>
+              <Text>{task.title}</Text>
+              <AntDesign
+                name={!!expandedTask ? "upcircleo" : "downcircleo"}
+                size={16}
+                color="green"
+                style={{ marginLeft: 5 }}
+              />
+            </TouchableOpacity>
+          ))}
+          {/* modal */}
+
+          {expandedTask && (
             <LongPressGestureHandler
               key={index}
               onHandlerStateChange={({ nativeEvent }) => {
                 if (nativeEvent.state === State.ACTIVE) {
-                  handleLongPress(task);
+                  handleLongPress(expandedTask);
                 }
               }}
             >
-              <View style={styles.listItem}>
-                <Text style={styles.checkIcon}>✓</Text>
-                <Text>{task.title}</Text>
-                <AntDesign
-                  name={expandedTask === task ? "upcircleo" : "downcircleo"}
-                  size={16}
-                  color="green"
-                  style={{ marginLeft: 5 }}
-                />
+              <View style={styles.centeredContainer}>
+                <Button title={"close"} onPress={() => setExpandedTask(null)} />
+                {expandedTask.description.map((des, index) => (
+                  <Text key={index} style={styles.centeredText}>
+                    {des}
+                  </Text>
+                ))}
               </View>
             </LongPressGestureHandler>
-          ))}
-          {expandedTask && isExpanded && (
+          )}
+          {longPressedTask && (
             <View style={styles.centeredContainer}>
-              {expandedTask.description.map((d, index) => (
-                <Text key={index} style={styles.centeredText}>
-                  {d}
-                </Text>
-              ))}
+              <Button
+                title={"close"}
+                onPress={() => setLongPressedTask(null)}
+              />
+              {longPressedTask.video && (
+                <View>
+                  <Text>video</Text>
+                  <ExpoVideo uri={longPressedTask.video} />
+                </View>
+              )}
             </View>
           )}
         </ScrollView>
@@ -180,11 +195,12 @@ const styles = StyleSheet.create({
   centeredContainer: {
     position: "absolute",
     top: "50%",
-    left: "50%",
+    left: 50,
     transform: [{ translateX: -50 }, { translateY: -50 }],
     backgroundColor: "white",
     padding: 20,
     zIndex: 1,
+    elevation: 10,
   },
   centeredText: {
     textAlign: "center",
@@ -192,68 +208,3 @@ const styles = StyleSheet.create({
 });
 
 export default CourseDetailsScreen;
-
-// const SecondRoute = () => {
-//   const [isExpanded, setIsExpanded] = useState(false);
-//   const [expandedTask, setExpandedTask] = useState(null);
-//   const [isTaskSelected, setIsTaskSelected] = useState(false);
-
-//   const handleLongPress = (task) => {
-//     if (isTaskSelected) {
-//       if (expandedTask === task) (!isExpanded);
-//       setExpandedTask(null);
-//     } else {
-//       setIsExpanded(true);
-//       setExpandedTask(task);
-//     }
-
-//     // if (task.videoUrl) {
-//     //
-//     // <Text>video</Text>
-//     // <ExpoVideo uri={course.video} />
-//     // }
-//   };
-
-//   return (
-//     <View style={{ flex: 1, backgroundColor: "darkgrey" }}>
-//       <ScrollView contentContainerStyle={styles.container}>
-//         <Text style={styles.heading2}>Course Content</Text>
-//         {course.tasks?.map((task, index) => (
-//           <LongPressGestureHandler
-//             key={index}
-//             onHandlerStateChange={({ nativeEvent }) => {
-//               if (nativeEvent.state === State.ACTIVE) {
-//                 setIsTaskSelected(true);
-//                 handleLongPress(task);
-
-//               }
-//             }}
-//           >
-//             <TouchableOpacity
-//               style={styles.listItem}
-//               onPress={() => setIsTaskSelected(!isTaskSelected)}
-//             >
-//               <Text style={styles.checkIcon}>✓</Text>
-//               <Text>{task.title}</Text>
-//               <AntDesign
-//                 name={isExpanded ? "upcircleo" : "downcircleo"}
-//                 size={16}
-//                 color="green"
-//                 style={{ marginLeft: 5 }}
-//               />
-//             </TouchableOpacity>
-//           </LongPressGestureHandler>
-//         ))}
-//         {expandedTask && (
-//           <View style={styles.centeredContainer}>
-//             {expandedTask.description.map((des, index) => (
-//               <Text key={index} style={styles.centeredText}>
-//                 {des}
-//               </Text>
-//             ))}
-//           </View>
-//         )}
-//       </ScrollView>
-//     </View>
-//   );
-// };

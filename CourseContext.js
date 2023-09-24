@@ -21,6 +21,7 @@ const CourseProvider = ({ children }) => {
             "Formations in fotball",
             "Offense and defense in fotball",
           ],
+          video: "https://www.youtube.com/watch?v=uAk-S8y48Yg",
         },
         { title: "Football all around the world" },
         { title: "Kick the ball" },
