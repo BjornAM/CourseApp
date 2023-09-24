@@ -71,6 +71,10 @@ const HomeScreen = () => {
     setShowCategories(!showCategories);
   };
 
+  const handleCoursePress = (course) => {
+    navigation.navigate("CourseDetails", { course });
+  };
+
   const renderCourseItem = ({ item }) => (
     <Pressable
       style={styles.courseItem}
@@ -93,10 +97,6 @@ const HomeScreen = () => {
       </View>
     </Pressable>
   );
-
-  const handleCoursePress = (course) => {
-    navigation.navigate("CourseDetails", { course });
-  };
 
   const handleAddCourse = () => {
     navigation.navigate("AddCourse");

@@ -27,8 +27,8 @@ const CourseDetailsScreen = ({ route }) => {
             <Image source={{ uri: course.image }} style={styles.image} />
           )}
           <Text style={styles.heading1}>{course.name}</Text>
-          <Text>video</Text>
-          <ExpoVideo uri={course.video} />
+          {/* <Text>video</Text>
+          <ExpoVideo uri={course.video} /> */}
 
           <Text style={styles.heading2}>Course Content</Text>
           {course.tasks.map((task, index) => (
@@ -65,20 +65,17 @@ const CourseDetailsScreen = ({ route }) => {
   const SecondRoute = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [expandedTask, setExpandedTask] = useState(null);
-    const [isTaskSelected, setIsTaskSelected] = useState(false);
 
     const handleLongPress = (task) => {
-      if (isTaskSelected) {
-        if (expandedTask === task) isExpanded;
+      if (expandedTask === task) {
+        // Om samma task trycks igen, dölj beskrivningen
+        setIsExpanded(false);
         setExpandedTask(null);
       } else {
+        // Annars, visa beskrivningen för den tryckta tasken
         setIsExpanded(true);
         setExpandedTask(task);
       }
-
-      // if (task.videoUrl) {
-      //   // Öppna videon
-      // }
     };
 
     return (
@@ -90,27 +87,23 @@ const CourseDetailsScreen = ({ route }) => {
               key={index}
               onHandlerStateChange={({ nativeEvent }) => {
                 if (nativeEvent.state === State.ACTIVE) {
-                  setIsTaskSelected(true);
                   handleLongPress(task);
                 }
               }}
             >
-              <TouchableOpacity
-                style={styles.listItem}
-                onPress={() => setIsTaskSelected(!isTaskSelected)}
-              >
+              <View style={styles.listItem}>
                 <Text style={styles.checkIcon}>✓</Text>
                 <Text>{task.title}</Text>
                 <AntDesign
-                  name={isExpanded ? "upcircleo" : "downcircleo"}
+                  name={expandedTask === task ? "upcircleo" : "downcircleo"}
                   size={16}
                   color="green"
                   style={{ marginLeft: 5 }}
                 />
-              </TouchableOpacity>
+              </View>
             </LongPressGestureHandler>
           ))}
-          {expandedTask && (
+          {expandedTask && isExpanded && (
             <View style={styles.centeredContainer}>
               {expandedTask.description.map((d, index) => (
                 <Text key={index} style={styles.centeredText}>
@@ -200,37 +193,67 @@ const styles = StyleSheet.create({
 
 export default CourseDetailsScreen;
 
-// return (
-//   <View style={{ flex: 1, backgroundColor: "darkgrey" }}>
-//     <ScrollView contentContainerStyle={styles.container}>
-//       <Text style={styles.heading2}>Course Content</Text>
-//       {course.tasks?.map((task, index) => (
-//         <TouchableOpacity
-//           style={styles.listItem}
-//           key={index}
-//           onPress={() => setIsExpanded(!isExpanded)}
-//         >
-//           <Text style={styles.checkIcon}>✓</Text>
-//           <Text>{task.title}</Text>
-//           <AntDesign
-//             name={isExpanded ? "upcircleo" : "downcircleo"}
-//             size={16}
-//             color="green"
-//             style={{ marginLeft: 5 }}
-//           />
-//           {isExpanded && (
-//             <Text
-//               style={{
-//                 alignItems: "center",
-//                 marginLeft: 15,
-//                 marginRight: 15,
-//               }}
+// const SecondRoute = () => {
+//   const [isExpanded, setIsExpanded] = useState(false);
+//   const [expandedTask, setExpandedTask] = useState(null);
+//   const [isTaskSelected, setIsTaskSelected] = useState(false);
+
+//   const handleLongPress = (task) => {
+//     if (isTaskSelected) {
+//       if (expandedTask === task) (!isExpanded);
+//       setExpandedTask(null);
+//     } else {
+//       setIsExpanded(true);
+//       setExpandedTask(task);
+//     }
+
+//     // if (task.videoUrl) {
+//     //
+//     // <Text>video</Text>
+//     // <ExpoVideo uri={course.video} />
+//     // }
+//   };
+
+//   return (
+//     <View style={{ flex: 1, backgroundColor: "darkgrey" }}>
+//       <ScrollView contentContainerStyle={styles.container}>
+//         <Text style={styles.heading2}>Course Content</Text>
+//         {course.tasks?.map((task, index) => (
+//           <LongPressGestureHandler
+//             key={index}
+//             onHandlerStateChange={({ nativeEvent }) => {
+//               if (nativeEvent.state === State.ACTIVE) {
+//                 setIsTaskSelected(true);
+//                 handleLongPress(task);
+
+//               }
+//             }}
+//           >
+//             <TouchableOpacity
+//               style={styles.listItem}
+//               onPress={() => setIsTaskSelected(!isTaskSelected)}
 //             >
-//               {task.description}
-//             </Text>
-//           )}
-//         </TouchableOpacity>
-//       ))}
-//     </ScrollView>
-//   </View>
-// );
+//               <Text style={styles.checkIcon}>✓</Text>
+//               <Text>{task.title}</Text>
+//               <AntDesign
+//                 name={isExpanded ? "upcircleo" : "downcircleo"}
+//                 size={16}
+//                 color="green"
+//                 style={{ marginLeft: 5 }}
+//               />
+//             </TouchableOpacity>
+//           </LongPressGestureHandler>
+//         ))}
+//         {expandedTask && (
+//           <View style={styles.centeredContainer}>
+//             {expandedTask.description.map((des, index) => (
+//               <Text key={index} style={styles.centeredText}>
+//                 {des}
+//               </Text>
+//             ))}
+//           </View>
+//         )}
+//       </ScrollView>
+//     </View>
+//   );
+// };
