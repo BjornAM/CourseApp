@@ -10,18 +10,17 @@ const CourseProvider = ({ children }) => {
       name: "The ultimate Fooball-package: All levels",
       category: "Sport",
       image: "https://i.postimg.cc/gkf2WsW-5/Football.jpg",
-      video: "https://www.youtube.com/watch?v=uAk-S8y48Yg",
       profileName: "Neymar Jr",
       profileImage: "https://i.postimg.cc/bYmZK1dc/Neymar.jpg",
       tasks: [
         {
           title: "Strategies",
+          video: "https://www.youtube.com/watch?v=uAk-S8y48Yg",
           description: [
             "Rules in fotball",
             "Formations in fotball",
             "Offense and defense in fotball",
           ],
-          video: "https://www.youtube.com/watch?v=uAk-S8y48Yg",
         },
         { title: "Football all around the world" },
         { title: "Kick the ball" },

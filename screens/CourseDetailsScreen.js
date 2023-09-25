@@ -106,22 +106,25 @@ const CourseDetailsScreen = ({ route }) => {
               <View style={styles.centeredContainer}>
                 <Button title={"close"} onPress={() => setExpandedTask(null)} />
                 {expandedTask.description.map((des, index) => (
-                  <Text key={index} style={styles.centeredText}>
-                    {des}
-                  </Text>
+                  <View style={styles.listItem}>
+                    <Text style={styles.checkIcon2}>✓</Text>
+                    <Text key={index} style={styles.expandedTaskText}>
+                      {des}
+                    </Text>
+                  </View>
                 ))}
+                <Text style={styles.videoText}>Hold press for video</Text>
               </View>
             </LongPressGestureHandler>
           )}
           {longPressedTask && (
-            <View style={styles.centeredContainer}>
+            <View style={styles.videoContainer}>
               <Button
                 title={"close"}
                 onPress={() => setLongPressedTask(null)}
               />
               {longPressedTask.video && (
-                <View>
-                  <Text>video</Text>
+                <View style={styles.videoView}>
                   <ExpoVideo uri={longPressedTask.video} />
                 </View>
               )}
@@ -141,8 +144,8 @@ const CourseDetailsScreen = ({ route }) => {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "first", title: "route 1" },
-    { key: "second", title: "route 2" },
+    { key: "first", title: "tasks" },
+    { key: "second", title: "videos" },
   ]); // styla den blåa bannern
 
   //   const CourseDetails = () => {};
@@ -187,23 +190,56 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: "green",
   },
+  checkIcon2: {
+    margin: 2,
+    color: "blue",
+  },
   description: {
     fontSize: 16,
     marginTop: 5,
     color: "gray",
   },
   centeredContainer: {
+    margin: 3,
     position: "absolute",
-    top: "50%",
-    left: 50,
-    transform: [{ translateX: -50 }, { translateY: -50 }],
+    height: 300,
+    width: 200,
+    top: 150,
+    left: 90,
     backgroundColor: "white",
     padding: 20,
     zIndex: 1,
-    elevation: 10,
+    elevation: 5,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.5,
+  },
+  videoContainer: {
+    position: "absolute",
+    backgroundColor: "white",
+    alignItems: "center",
+    marginTop: 20,
+    height: 500,
+    width: 300,
   },
   centeredText: {
     textAlign: "center",
+  },
+  expandedTaskText: {
+    marginTop: 10,
+  },
+  videoText: {
+    marginTop: 20,
+    textAlign: "center",
+    fontStyle: "italic",
+  },
+  videoView: {
+    height: 300,
+    width: 200,
   },
 });
 
